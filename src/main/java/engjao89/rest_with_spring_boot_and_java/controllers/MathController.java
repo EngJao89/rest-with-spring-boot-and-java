@@ -13,15 +13,22 @@ public class MathController {
             @PathVariable("numberOne") String numberOne,
             @PathVariable("numberTwo") String numberTwo
     ) throws Exception {
-        if(!isNumeric(numberOne) || !isNumeric(numberTwo)) throw new IllegalAccessException();
+        if(!isNumeric(numberOne) || !isNumeric(numberTwo)) throw new IllegalArgumentException();
         return convertToDouble(numberOne) + convertToDouble(numberTwo);
     }
 
-    private Double convertToDouble(String number) {
-        return 1D;
+    private Double convertToDouble(String strNumber) throws IllegalArgumentException{
+        if (strNumber == null || strNumber.isEmpty()) throw new IllegalArgumentException();
+
+        String number = strNumber.replace(",",".");
+        return Double.parseDouble(number);
     }
 
-    private boolean isNumeric(String number) {
-        return false;
+    private boolean isNumeric(String strNumber) {
+        if (strNumber == null || strNumber.isEmpty()) return false;
+
+        String number = strNumber.replace(",",".");
+
+        return number.matches("[-+]?[0-9]*\\.?[0-9]+");
     }
 }
