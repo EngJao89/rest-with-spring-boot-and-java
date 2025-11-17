@@ -1,5 +1,6 @@
 package engjao89.rest_with_spring_boot_and_java.controllers;
 
+import engjao89.rest_with_spring_boot_and_java.exception.UnsupportedMathOperationException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +14,8 @@ public class MathController {
             @PathVariable("numberOne") String numberOne,
             @PathVariable("numberTwo") String numberTwo
     ) throws Exception {
-        if(!isNumeric(numberOne) || !isNumeric(numberTwo)) throw new IllegalArgumentException();
+        if(!isNumeric(numberOne) || !isNumeric(numberTwo))
+            throw new UnsupportedMathOperationException("Please set a numeric value");
         return convertToDouble(numberOne) + convertToDouble(numberTwo);
     }
 
