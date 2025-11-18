@@ -22,7 +22,7 @@ public class CustomEntityResponseHandle extends ResponseEntityExceptionHandler {
                 ex.getMessage(),
                 request.getDescription(false)
         );
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR)
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(UnsupportedMathOperationException.class)
@@ -32,6 +32,6 @@ public class CustomEntityResponseHandle extends ResponseEntityExceptionHandler {
                 ex.getMessage(),
                 request.getDescription(false)
         );
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR)
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
