@@ -1,6 +1,7 @@
 package engjao89.rest_with_spring_boot_and_java.service;
 
-import engjao89.rest_with_spring_boot_and_java.exception.UnsupportedMathOperationException;
+
+import engjao89.rest_with_spring_boot_and_java.exception.ResourceNotFoundException;
 import engjao89.rest_with_spring_boot_and_java.util.NumberConverter;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class MathService {
         Double num2 = NumberConverter.convertToDoubleOrThrow(numberTwo);
         
         if (num2 == 0) {
-            throw new UnsupportedMathOperationException("Division by zero is not allowed");
+            throw new ResourceNotFoundException("Division by zero is not allowed");
         }
         
         return num1 / num2;
@@ -46,7 +47,7 @@ public class MathService {
         Double value = NumberConverter.convertToDoubleOrThrow(number);
         
         if (value < 0) {
-            throw new UnsupportedMathOperationException("Square root of negative number is not allowed");
+            throw new ResourceNotFoundException("Square root of negative number is not allowed");
         }
         
         return Math.sqrt(value);
