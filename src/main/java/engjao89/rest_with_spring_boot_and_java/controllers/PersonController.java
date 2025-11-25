@@ -1,6 +1,6 @@
 package engjao89.rest_with_spring_boot_and_java.controllers;
 
-import engjao89.rest_with_spring_boot_and_java.PersonServices;
+import engjao89.rest_with_spring_boot_and_java.service.PersonServices;
 import engjao89.rest_with_spring_boot_and_java.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
