@@ -1,1 +1,27 @@
-spring.application.name=rest-with-spring-boot-and-java
+spring:
+  application:
+    name: rest-with-spring-boot-and-java
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/${MYSQL_DATABASE:rest_with_spring_boot}?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=America/Sao_Paulo&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USER:app_user}
+    password: ${MYSQL_PASSWORD:minha_senha}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      auto-commit: true
+  
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        connection:
+          provider_disables_autocommit: false
