@@ -20,47 +20,69 @@ public class PersonServices {
 
 
     public List<Person> findAll() {
-
-        logger.info("Finding all People!");
-
-        return repository.findAll();
+        logger.debug("Iniciando busca de todas as pessoas");
+        List<Person> persons = repository.findAll();
+        logger.info("Total de pessoas encontradas: {}", persons.size());
+        logger.debug("Lista de pessoas: {}", persons);
+        return persons;
     }
 
     public Person findById(Long id) {
-        logger.info("Finding one Person!");
-
-        return repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+        logger.debug("Buscando pessoa com ID: {}", id);
+        Person person = repository.findById(id)
+                .orElseThrow(() -> {
+                    logger.warn("Pessoa não encontrada com ID: {}", id);
+                    return new ResourceNotFoundException("No records found for this ID!");
+                });
+        logger.info("Pessoa encontrada: {} {} (ID: {})", person.getFirstName(), person.getLastName(), person.getId());
+        return person;
     }
 
     public Person create(Person person) {
-
-        logger.info("Creating one Person!");
-
+        logger.debug("Iniciando criação de nova pessoa: {} {}", person.getFirstName(), person.getLastName());
         person.setId(null);
-        return repository.save(person);
+        Person savedPerson = repository.save(person);
+        logger.info("Pessoa criada com sucesso! ID: {}, Nome: {} {}", 
+                   savedPerson.getId(), savedPerson.getFirstName(), savedPerson.getLastName());
+        logger.debug("Dados completos da pessoa criada: {}", savedPerson);
+        return savedPerson;
     }
 
     public Person update(Person person) {
-
-        logger.info("Updating one Person!");
+        logger.debug("Iniciando atualização da pessoa com ID: {}", person.getId());
         Person entity = repository.findById(person.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
-
+                .orElseThrow(() -> {
+                    logger.warn("Tentativa de atualizar pessoa inexistente com ID: {}", person.getId());
+                    return new ResourceNotFoundException("No records found for this ID!");
+                });
+        
+        logger.debug("Dados antigos - Nome: {} {}, Endereço: {}, Gênero: {}", 
+                    entity.getFirstName(), entity.getLastName(), entity.getAddress(), entity.getGender());
+        
         entity.setFirstName(person.getFirstName());
         entity.setLastName(person.getLastName());
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
 
-        return repository.save(entity);
+        Person updatedPerson = repository.save(entity);
+        logger.info("Pessoa atualizada com sucesso! ID: {}, Novo nome: {} {}", 
+                   updatedPerson.getId(), updatedPerson.getFirstName(), updatedPerson.getLastName());
+        logger.debug("Dados completos da pessoa atualizada: {}", updatedPerson);
+        return updatedPerson;
     }
 
     public void delete(Long id) {
-
-        logger.info("Deleting one Person!");
-
+        logger.debug("Iniciando exclusão da pessoa com ID: {}", id);
         Person entity = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+                .orElseThrow(() -> {
+                    logger.warn("Tentativa de excluir pessoa inexistente com ID: {}", id);
+                    return new ResourceNotFoundException("No records found for this ID!");
+                });
+        
+        logger.debug("Pessoa a ser excluída: {} {} (ID: {})", 
+                    entity.getFirstName(), entity.getLastName(), entity.getId());
         repository.delete(entity);
+        logger.info("Pessoa excluída com sucesso! ID: {}, Nome: {} {}", 
+                   id, entity.getFirstName(), entity.getLastName());
     }
 }
