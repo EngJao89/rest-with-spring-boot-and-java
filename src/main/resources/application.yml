@@ -26,5 +26,14 @@ spring:
           provider_disables_autocommit: false
   logging:
     level:
-      # root: WARN
+      root: INFO
       engjao89.rest_with_spring_boot_and_java: DEBUG
+      engjao89.rest_with_spring_boot_and_java.service: DEBUG
+      engjao89.rest_with_spring_boot_and_java.controllers: DEBUG
+      org.springframework.web: INFO
+      org.hibernate: INFO
+      org.hibernate.SQL: DEBUG
+      org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    pattern:
+      console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+      file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
