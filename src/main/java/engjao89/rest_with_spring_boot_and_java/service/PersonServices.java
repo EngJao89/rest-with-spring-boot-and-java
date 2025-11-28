@@ -1,6 +1,7 @@
 package engjao89.rest_with_spring_boot_and_java.service;
 
-import engjao89.rest_with_spring_boot_and_java.data.dto.PersonDTO;
+import engjao89.rest_with_spring_boot_and_java.data.dto.V1.PersonDTO;
+import engjao89.rest_with_spring_boot_and_java.data.dto.V2.PersonDTOV2;
 import engjao89.rest_with_spring_boot_and_java.exception.ResourceNotFoundException;
 import engjao89.rest_with_spring_boot_and_java.model.Person;
 import engjao89.rest_with_spring_boot_and_java.repository.PersonRepository;
@@ -24,6 +25,9 @@ public class PersonServices {
     @Autowired
     PersonRepository repository;
 
+    @Autowired
+    PersonMapper converter;
+
 
     public List<PersonDTO> findAll() {
 
@@ -46,6 +50,14 @@ public class PersonServices {
         var entity = parseObject(person, Person.class);
 
         return parseObject(repository.save(entity), PersonDTO.class);
+    }
+
+    public PersonDTOV2 createV2(PersonDTOV2 person) {
+
+        logger.info("Creating one Person V2!");
+        var entity = converter.convertDTOtoEntity(person);
+
+        return converter.convertEntityToDTO(repository.save(entity));
     }
 
     public PersonDTO update(PersonDTO person) {
