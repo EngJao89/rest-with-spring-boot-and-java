@@ -1,5 +1,6 @@
 package engjao89.rest_with_spring_boot_and_java.service;
 
+import engjao89.rest_with_spring_boot_and_java.data.dto.PersonDTO;
 import engjao89.rest_with_spring_boot_and_java.exception.ResourceNotFoundException;
 import engjao89.rest_with_spring_boot_and_java.model.Person;
 import engjao89.rest_with_spring_boot_and_java.repository.PersonRepository;
@@ -9,80 +10,64 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
+
+import static engjao89.rest_with_spring_boot_and_java.mapper.ObjectMapper.parseListObjects;
+import static engjao89.rest_with_spring_boot_and_java.mapper.ObjectMapper.parseObject;
 
 @Service
 public class PersonServices {
 
-    private static final Logger logger = LoggerFactory.getLogger(PersonServices.class);
+    private final AtomicLong counter = new AtomicLong();
+    private Logger logger = LoggerFactory.getLogger(PersonServices.class.getName());
 
     @Autowired
     PersonRepository repository;
 
 
-    public List<Person> findAll() {
-        logger.debug("Iniciando busca de todas as pessoas");
-        List<Person> persons = repository.findAll();
-        logger.info("Total de pessoas encontradas: {}", persons.size());
-        logger.debug("Lista de pessoas: {}", persons);
-        return persons;
+    public List<PersonDTO> findAll() {
+
+        logger.info("Finding all People!");
+
+        return parseListObjects(repository.findAll(), PersonDTO.class);
     }
 
-    public Person findById(Long id) {
-        logger.debug("Buscando pessoa com ID: {}", id);
-        Person person = repository.findById(id)
-                .orElseThrow(() -> {
-                    logger.warn("Pessoa não encontrada com ID: {}", id);
-                    return new ResourceNotFoundException("No records found for this ID!");
-                });
-        logger.info("Pessoa encontrada: {} {} (ID: {})", person.getFirstName(), person.getLastName(), person.getId());
-        return person;
+    public PersonDTO findById(Long id) {
+        logger.info("Finding one Person!");
+
+        var entity = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+        return parseObject(entity, PersonDTO.class);
     }
 
-    public Person create(Person person) {
-        logger.debug("Iniciando criação de nova pessoa: {} {}", person.getFirstName(), person.getLastName());
-        person.setId(null);
-        Person savedPerson = repository.save(person);
-        logger.info("Pessoa criada com sucesso! ID: {}, Nome: {} {}", 
-                   savedPerson.getId(), savedPerson.getFirstName(), savedPerson.getLastName());
-        logger.debug("Dados completos da pessoa criada: {}", savedPerson);
-        return savedPerson;
+    public PersonDTO create(PersonDTO person) {
+
+        logger.info("Creating one Person!");
+        var entity = parseObject(person, Person.class);
+
+        return parseObject(repository.save(entity), PersonDTO.class);
     }
 
-    public Person update(Person person) {
-        logger.debug("Iniciando atualização da pessoa com ID: {}", person.getId());
+    public PersonDTO update(PersonDTO person) {
+
+        logger.info("Updating one Person!");
         Person entity = repository.findById(person.getId())
-                .orElseThrow(() -> {
-                    logger.warn("Tentativa de atualizar pessoa inexistente com ID: {}", person.getId());
-                    return new ResourceNotFoundException("No records found for this ID!");
-                });
-        
-        logger.debug("Dados antigos - Nome: {} {}, Endereço: {}, Gênero: {}", 
-                    entity.getFirstName(), entity.getLastName(), entity.getAddress(), entity.getGender());
-        
+                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+
         entity.setFirstName(person.getFirstName());
         entity.setLastName(person.getLastName());
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
 
-        Person updatedPerson = repository.save(entity);
-        logger.info("Pessoa atualizada com sucesso! ID: {}, Novo nome: {} {}", 
-                   updatedPerson.getId(), updatedPerson.getFirstName(), updatedPerson.getLastName());
-        logger.debug("Dados completos da pessoa atualizada: {}", updatedPerson);
-        return updatedPerson;
+        return parseObject(repository.save(entity), PersonDTO.class);
     }
 
     public void delete(Long id) {
-        logger.debug("Iniciando exclusão da pessoa com ID: {}", id);
+
+        logger.info("Deleting one Person!");
+
         Person entity = repository.findById(id)
-                .orElseThrow(() -> {
-                    logger.warn("Tentativa de excluir pessoa inexistente com ID: {}", id);
-                    return new ResourceNotFoundException("No records found for this ID!");
-                });
-        
-        logger.debug("Pessoa a ser excluída: {} {} (ID: {})", 
-                    entity.getFirstName(), entity.getLastName(), entity.getId());
+                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
         repository.delete(entity);
-        logger.info("Pessoa excluída com sucesso! ID: {}, Nome: {} {}", 
-                   id, entity.getFirstName(), entity.getLastName());
     }
 }
