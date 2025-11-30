@@ -1,6 +1,7 @@
 package engjao89.rest_with_spring_boot_and_java.controllers;
 
 import engjao89.rest_with_spring_boot_and_java.data.dto.V1.PersonDTO;
+import engjao89.rest_with_spring_boot_and_java.data.dto.V2.PersonDTOV2;
 import engjao89.rest_with_spring_boot_and_java.service.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
