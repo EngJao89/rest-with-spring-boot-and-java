@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 import static engjao89.rest_with_spring_boot_and_java.mapper.ObjectMapper.parseListObjects;
 import static engjao89.rest_with_spring_boot_and_java.mapper.ObjectMapper.parseObject;
@@ -20,8 +19,7 @@ import static engjao89.rest_with_spring_boot_and_java.mapper.ObjectMapper.parseO
 @Service
 public class PersonServices {
 
-    private final AtomicLong counter = new AtomicLong();
-    private Logger logger = LoggerFactory.getLogger(PersonServices.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(PersonServices.class);
 
     @Autowired
     PersonRepository repository;
@@ -48,9 +46,20 @@ public class PersonServices {
     public PersonDTO create(PersonDTO person) {
 
         logger.info("Creating one Person!");
+        
+        if (person == null) {
+            logger.error("Person DTO is null");
+            throw new IllegalArgumentException("Person data cannot be null");
+        }
+        
         var entity = parseObject(person, Person.class);
-
-        return parseObject(repository.save(entity), PersonDTO.class);
+        
+        // Garante que o ID seja null para forçar um INSERT
+        entity.setId(null);
+        
+        Person savedEntity = repository.save(entity);
+        logger.info("Person created successfully! ID: {}", savedEntity.getId());
+        return parseObject(savedEntity, PersonDTO.class);
     }
 
     public PersonDTOV2 createV2(PersonDTOV2 person) {
@@ -63,16 +72,34 @@ public class PersonServices {
 
     public PersonDTO update(PersonDTO person) {
 
-        logger.info("Updating one Person!");
+        logger.info("Updating one Person! ID: {}", person != null ? person.getId() : "null");
+        
+        if (person == null) {
+            logger.error("Person DTO is null");
+            throw new IllegalArgumentException("Person data cannot be null");
+        }
+        
+        if (person.getId() == null) {
+            logger.warn("Attempt to update person without ID. Person data: {}", person);
+            throw new IllegalArgumentException("Person ID is required for update operation");
+        }
+        
         Person entity = repository.findById(person.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+                .orElseThrow(() -> {
+                    logger.warn("Person not found with ID: {}", person.getId());
+                    return new ResourceNotFoundException("No records found for this ID!");
+                });
 
+        logger.debug("Updating person entity with ID: {}", entity.getId());
         entity.setFirstName(person.getFirstName());
         entity.setLastName(person.getLastName());
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
+        entity.setBirthDay(person.getBirthDay());
 
-        return parseObject(repository.save(entity), PersonDTO.class);
+        Person savedEntity = repository.save(entity);
+        logger.info("Person updated successfully! ID: {}", savedEntity.getId());
+        return parseObject(savedEntity, PersonDTO.class);
     }
 
     public void delete(Long id) {
