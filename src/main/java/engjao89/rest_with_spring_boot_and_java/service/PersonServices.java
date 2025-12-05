@@ -1,5 +1,6 @@
 package engjao89.rest_with_spring_boot_and_java.service;
 
+import engjao89.rest_with_spring_boot_and_java.controllers.PersonController;
 import engjao89.rest_with_spring_boot_and_java.data.dto.V1.PersonDTO;
 import engjao89.rest_with_spring_boot_and_java.data.dto.V2.PersonDTOV2;
 import engjao89.rest_with_spring_boot_and_java.exception.ResourceNotFoundException;
@@ -15,6 +16,8 @@ import java.util.List;
 
 import static engjao89.rest_with_spring_boot_and_java.mapper.ObjectMapper.parseListObjects;
 import static engjao89.rest_with_spring_boot_and_java.mapper.ObjectMapper.parseObject;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class PersonServices {
@@ -109,5 +112,13 @@ public class PersonServices {
         Person entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
         repository.delete(entity);
+    }
+
+    private void addHateoasLinks(PersonDTO dto) {
+        dto.add(linkTo(methodOn(PersonController.class).findById(dto.getId())).withSelfRel().withType("GET"));
+        dto.add(linkTo(methodOn(PersonController.class).findAll()).withRel("findAll").withType("GET"));
+        dto.add(linkTo(methodOn(PersonController.class).create(dto)).withRel("create").withType("POST"));
+        dto.add(linkTo(methodOn(PersonController.class).update(dto)).withRel("update").withType("PUT"));
+        dto.add(linkTo(methodOn(PersonController.class).delete(dto.getId())).withRel("delete").withType("DELETE"));
     }
 }
