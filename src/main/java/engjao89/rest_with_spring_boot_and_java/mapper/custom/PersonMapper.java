@@ -4,8 +4,6 @@ import engjao89.rest_with_spring_boot_and_java.data.dto.V2.PersonDTOV2;
 import engjao89.rest_with_spring_boot_and_java.model.Person;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-
 @Service
 public class PersonMapper {
 
@@ -14,7 +12,7 @@ public class PersonMapper {
         dto.setId(person.getId());
         dto.setFirstName(person.getFirstName());
         dto.setLastName(person.getLastName());
-        dto.setBirthDay(new Date());
+        dto.setBirthDay(person.getBirthDay());
         dto.setAddress(person.getAddress());
         dto.setGender(person.getGender());
         return dto;
@@ -25,7 +23,7 @@ public class PersonMapper {
         entity.setId(person.getId());
         entity.setFirstName(person.getFirstName());
         entity.setLastName(person.getLastName());
-        // entity.setBirthDay(new Date());
+        entity.setBirthDay(person.getBirthDay());
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
         return entity;
