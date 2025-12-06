@@ -35,7 +35,9 @@ public class PersonServices {
 
         logger.info("Finding all People!");
 
-        return parseListObjects(repository.findAll(), PersonDTO.class);
+        var persons = parseListObjects(repository.findAll(), PersonDTO.class);
+        persons.forEach(this::addHateoasLinks);
+        return persons;
     }
 
     public PersonDTO findById(Long id) {
@@ -43,26 +45,21 @@ public class PersonServices {
 
         var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
-        return parseObject(entity, PersonDTO.class);
+        var dto =  parseObject(entity, PersonDTO.class);
+        addHateoasLinks(dto);
+        return dto;
     }
 
     public PersonDTO create(PersonDTO person) {
 
+        if (person == null) throw new RequiredObjectIsNullException();
+
         logger.info("Creating one Person!");
-        
-        if (person == null) {
-            logger.error("Person DTO is null");
-            throw new IllegalArgumentException("Person data cannot be null");
-        }
-        
         var entity = parseObject(person, Person.class);
-        
-        // Garante que o ID seja null para forçar um INSERT
-        entity.setId(null);
-        
-        Person savedEntity = repository.save(entity);
-        logger.info("Person created successfully! ID: {}", savedEntity.getId());
-        return parseObject(savedEntity, PersonDTO.class);
+
+        var dto = parseObject(repository.save(entity), PersonDTO.class);
+        addHateoasLinks(dto);
+        return dto;
     }
 
     public PersonDTOV2 createV2(PersonDTOV2 person) {
@@ -75,34 +72,20 @@ public class PersonServices {
 
     public PersonDTO update(PersonDTO person) {
 
-        logger.info("Updating one Person! ID: {}", person != null ? person.getId() : "null");
-        
-        if (person == null) {
-            logger.error("Person DTO is null");
-            throw new IllegalArgumentException("Person data cannot be null");
-        }
-        
-        if (person.getId() == null) {
-            logger.warn("Attempt to update person without ID. Person data: {}", person);
-            throw new IllegalArgumentException("Person ID is required for update operation");
-        }
-        
-        Person entity = repository.findById(person.getId())
-                .orElseThrow(() -> {
-                    logger.warn("Person not found with ID: {}", person.getId());
-                    return new ResourceNotFoundException("No records found for this ID!");
-                });
+        if (person == null) throw new RequiredObjectIsNullException();
 
-        logger.debug("Updating person entity with ID: {}", entity.getId());
+        logger.info("Updating one Person!");
+        Person entity = repository.findById(person.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+
         entity.setFirstName(person.getFirstName());
         entity.setLastName(person.getLastName());
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
-        entity.setBirthDay(person.getBirthDay());
 
-        Person savedEntity = repository.save(entity);
-        logger.info("Person updated successfully! ID: {}", savedEntity.getId());
-        return parseObject(savedEntity, PersonDTO.class);
+        var dto = parseObject(repository.save(entity), PersonDTO.class);
+        addHateoasLinks(dto);
+        return dto;
     }
 
     public void delete(Long id) {
