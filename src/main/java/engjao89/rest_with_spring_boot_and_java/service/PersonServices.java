@@ -3,6 +3,7 @@ package engjao89.rest_with_spring_boot_and_java.service;
 import engjao89.rest_with_spring_boot_and_java.controllers.PersonController;
 import engjao89.rest_with_spring_boot_and_java.data.dto.V1.PersonDTO;
 import engjao89.rest_with_spring_boot_and_java.data.dto.V2.PersonDTOV2;
+import engjao89.rest_with_spring_boot_and_java.exception.RequiredObjectIsNullException;
 import engjao89.rest_with_spring_boot_and_java.exception.ResourceNotFoundException;
 import engjao89.rest_with_spring_boot_and_java.mapper.custom.PersonMapper;
 import engjao89.rest_with_spring_boot_and_java.model.Person;
