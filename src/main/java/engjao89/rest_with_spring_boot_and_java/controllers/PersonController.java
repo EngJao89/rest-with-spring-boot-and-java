@@ -1,5 +1,6 @@
 package engjao89.rest_with_spring_boot_and_java.controllers;
 
+import engjao89.rest_with_spring_boot_and_java.controllers.docs.PersonControllerDocs;
 import engjao89.rest_with_spring_boot_and_java.data.dto.V1.PersonDTO;
 import engjao89.rest_with_spring_boot_and_java.data.dto.V2.PersonDTOV2;
 import engjao89.rest_with_spring_boot_and_java.service.PersonServices;
@@ -14,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/person/v1")
 @Tag(name = "People", description = "Endpoints for Managing People")
-public class PersonController {
+public class PersonController implements PersonControllerDocs {
 
     @Autowired
     private PersonServices service;
