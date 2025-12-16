@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: rest-api-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: rest_with_spring_boot
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: minha_senha
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - rest-api-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot_password"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: --default-authentication-plugin=mysql_native_password
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rest-api-app
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: rest_with_spring_boot
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: minha_senha
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - rest-api-network
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+
+networks:
+  rest-api-network:
+    driver: bridge
