@@ -39,6 +39,7 @@ docker-compose logs -f
 - **API**: http://localhost:8080
 - **Swagger UI**: http://localhost:8080/swagger-ui.html
 - **API Docs**: http://localhost:8080/v3/api-docs
+- **MySQL**: localhost:3307 (porta externa, interna do container é 3306)
 
 ### 4. Parar os containers
 
@@ -69,8 +70,14 @@ docker exec -it rest-api-app bash
 
 ### Acessar o MySQL
 
+**Dentro do container:**
 ```bash
 docker exec -it rest-api-mysql mysql -u app_user -pminha_senha rest_with_spring_boot
+```
+
+**De fora do container (usando cliente MySQL local):**
+```bash
+mysql -h localhost -P 3307 -u app_user -pminha_senha rest_with_spring_boot
 ```
 
 ### Verificar status dos containers
