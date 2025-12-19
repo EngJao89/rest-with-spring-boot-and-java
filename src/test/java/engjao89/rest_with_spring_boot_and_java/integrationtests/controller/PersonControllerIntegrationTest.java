@@ -3,13 +3,13 @@ package engjao89.rest_with_spring_boot_and_java.integrationtests.controller;
 import engjao89.rest_with_spring_boot_and_java.config.TestConfigs;
 import engjao89.rest_with_spring_boot_and_java.data.dto.V1.PersonDTO;
 import engjao89.rest_with_spring_boot_and_java.integrationtests.testcontainers.AbstractIntegrationTest;
-import io.rest-assured.RestAssured;
+import io.restassured.RestAssured;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-import static io.rest-assured.RestAssured.given;
+import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
