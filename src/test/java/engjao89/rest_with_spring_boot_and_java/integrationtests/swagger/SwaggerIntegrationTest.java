@@ -2,10 +2,11 @@ package engjao89.rest_with_spring_boot_and_java.integrationtests.swagger;
 
 import engjao89.rest_with_spring_boot_and_java.config.TestConfigs;
 import engjao89.rest_with_spring_boot_and_java.integrationtests.testcontainers.AbstractIntegrationTest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class SwaggerIntegrationTest extends AbstractIntegrationTest {

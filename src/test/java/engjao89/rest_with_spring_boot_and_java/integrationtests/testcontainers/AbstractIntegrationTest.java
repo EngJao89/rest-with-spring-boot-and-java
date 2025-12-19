@@ -1,6 +1,6 @@
 package engjao89.rest_with_spring_boot_and_java.integrationtests.testcontainers;
 
-import io.rest-assured.RestAssured;
+import io.restassured.RestAssured;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
