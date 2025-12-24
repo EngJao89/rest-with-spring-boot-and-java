@@ -1,19 +1,13 @@
-package engjao89.rest_with_spring_boot_and_java.data.dto.V1;
+package engjao89.rest_with_spring_boot_and_java.dto;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import engjao89.rest_with_spring_boot_and_java.serialization.GenderSerializer;
-import org.springframework.hateoas.RepresentationModel;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Objects;
 
-// @JsonPropertyOrder({"id", "address", "first_name", "last_name", "gender"})
-@JsonFilter("PersonFilter")
-public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable {
+@XmlRootElement
+public class PersonDTO implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     private Long id;
@@ -76,13 +70,13 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        PersonDTO dto = (PersonDTO) o;
-        return Objects.equals(getId(), dto.getId()) && Objects.equals(getFirstName(), dto.getFirstName()) && Objects.equals(getLastName(), dto.getLastName()) && Objects.equals(getAddress(), dto.getAddress()) && Objects.equals(getGender(), dto.getGender()) && Objects.equals(getEnabled(), dto.getEnabled());
+        PersonDTO personDTO = (PersonDTO) o;
+        return Objects.equals(getId(), personDTO.getId()) && Objects.equals(getFirstName(), personDTO.getFirstName()) && Objects.equals(getLastName(), personDTO.getLastName()) && Objects.equals(getAddress(), personDTO.getAddress()) && Objects.equals(getGender(), personDTO.getGender()) && Objects.equals(getEnabled(), personDTO.getEnabled());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getId(), getFirstName(), getLastName(), getAddress(), getGender(), getEnabled());
+        return Objects.hash(getId(), getFirstName(), getLastName(), getAddress(), getGender(), getEnabled());
     }
 }
+

@@ -17,19 +17,19 @@ public class Person implements Serializable {
 
     @Column(name = "first_name", nullable = false, length = 80)
     private String firstName;
-    
+
     @Column(name = "last_name", nullable = false, length = 80)
     private String lastName;
-    
-    @Column(name = "address", length = 100)
+
+
+    @Column(nullable = false, length = 100)
     private String address;
-    
-    @Column(name = "gender", length = 6)
+
+    @Column(nullable = false, length = 6)
     private String gender;
-    
-    @Column(name = "birth_day")
-    @Temporal(TemporalType.DATE)
-    private Date birthDay;
+
+    @Column(nullable = false)
+    private Boolean enabled;
 
     public Person() {}
 
@@ -73,22 +73,23 @@ public class Person implements Serializable {
         this.gender = gender;
     }
 
-    public Date getBirthDay() {
-        return birthDay;
+    public Boolean getEnabled() {
+        return enabled;
     }
 
-    public void setBirthDay(Date birthDay) {
-        this.birthDay = birthDay;
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Person person)) return false;
-        return Objects.equals(getId(), person.getId()) && Objects.equals(getFirstName(), person.getFirstName()) && Objects.equals(getLastName(), person.getLastName()) && Objects.equals(getAddress(), person.getAddress()) && Objects.equals(getGender(), person.getGender()) && Objects.equals(getBirthDay(), person.getBirthDay());
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(getId(), person.getId()) && Objects.equals(getFirstName(), person.getFirstName()) && Objects.equals(getLastName(), person.getLastName()) && Objects.equals(getAddress(), person.getAddress()) && Objects.equals(getGender(), person.getGender()) && Objects.equals(getEnabled(), person.getEnabled());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName(), getAddress(), getGender(), getBirthDay());
+        return Objects.hash(getId(), getFirstName(), getLastName(), getAddress(), getGender(), getEnabled());
     }
 }
