@@ -40,12 +40,6 @@ class PersonControllerTest extends AbstractIntegrationTest {
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
         person = new PersonDTO();
-    }
-
-    @Test
-    @Order(1)
-    void createTest() throws JsonProcessingException {
-        mockPerson();
 
         specification = new RequestSpecBuilder()
                 .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_WEB)
@@ -54,6 +48,12 @@ class PersonControllerTest extends AbstractIntegrationTest {
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))
                 .addFilter(new ResponseLoggingFilter(LogDetail.ALL))
                 .build();
+    }
+
+    @Test
+    @Order(1)
+    void createTest() throws JsonProcessingException {
+        mockPerson();
 
         var content = given(specification)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
