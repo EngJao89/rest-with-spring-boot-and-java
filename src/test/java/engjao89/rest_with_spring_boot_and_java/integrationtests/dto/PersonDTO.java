@@ -1,4 +1,4 @@
-package engjao89.rest_with_spring_boot_and_java.dto;
+package engjao89.rest_with_spring_boot_and_java.integrationtests.dto;
 
 import jakarta.xml.bind.annotation.XmlRootElement;
 
