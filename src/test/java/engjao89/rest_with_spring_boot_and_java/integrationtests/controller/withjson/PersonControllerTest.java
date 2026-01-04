@@ -1,4 +1,4 @@
-package engjao89.rest_with_spring_boot_and_java.integrationtests.controllers.withjson;
+package engjao89.rest_with_spring_boot_and_java.integrationtests.controller.withjson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
