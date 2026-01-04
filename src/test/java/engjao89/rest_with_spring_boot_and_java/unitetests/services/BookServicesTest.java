@@ -1,9 +1,10 @@
-package engjao89.rest_with_spring_boot_and_java.service;
+package engjao89.rest_with_spring_boot_and_java.unitetests.services;
 
 import engjao89.rest_with_spring_boot_and_java.data.dto.V1.BookDTO;
 import engjao89.rest_with_spring_boot_and_java.exception.RequiredObjectIsNullException;
 import engjao89.rest_with_spring_boot_and_java.model.Book;
 import engjao89.rest_with_spring_boot_and_java.repository.BookRepository;
+import engjao89.rest_with_spring_boot_and_java.service.BookServices;
 import engjao89.rest_with_spring_boot_and_java.unitetests.mapper.mocks.MockBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -94,13 +95,12 @@ class BookServicesTest {
 
     @Test
     void create() {
-        Book book = input.mockEntity(1);
-        Book persisted = book;
-        persisted.setId(1L);
 
         BookDTO dto = input.mockDTO(1);
 
-        when(repository.save(book)).thenReturn(persisted);
+        Book entity = input.mockEntity(1);
+
+        when(repository.save(any(Book.class))).thenReturn(entity);
 
         var result = service.create(dto);
 
