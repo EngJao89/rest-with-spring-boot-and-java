@@ -55,7 +55,6 @@ public class PersonController implements PersonControllerDocs {
         return ResponseEntity.ok(service.findByName(firstName, pageable));
     }
 
-    // @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping(value = "/{id}",
             produces = {
                     MediaType.APPLICATION_JSON_VALUE,
@@ -67,7 +66,6 @@ public class PersonController implements PersonControllerDocs {
         return service.findById(id);
     }
 
-    // @CrossOrigin(origins = {"http://localhost:8080","https://www.erudio.com.br"})
     @PostMapping(
             consumes = {
                     MediaType.APPLICATION_JSON_VALUE,
