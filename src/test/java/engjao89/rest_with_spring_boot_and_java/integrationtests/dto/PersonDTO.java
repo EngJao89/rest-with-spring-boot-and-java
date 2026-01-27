@@ -1,8 +1,10 @@
 package engjao89.rest_with_spring_boot_and_java.integrationtests.dto;
 
+import engjao89.rest_with_spring_boot_and_java.data.dto.V1.BookDTO;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 @XmlRootElement
@@ -11,13 +13,12 @@ public class PersonDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    private String firstName;
-    private String lastName;
-    private String address;
-    private String gender;
-    private Boolean enabled;
+    private String author;
+    private Date launchDate;
+    private Double price;
+    private String title;
 
-    public PersonDTO() {}
+    public BookDTO() {}
 
     public Long getId() {
         return id;
@@ -27,56 +28,48 @@ public class PersonDTO implements Serializable {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public String getLastName() {
-        return lastName;
+    public Date getLaunchDate() {
+        return launchDate;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLaunchDate(Date launchDate) {
+        this.launchDate = launchDate;
     }
 
-    public String getAddress() {
-        return address;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
-    public String getGender() {
-        return gender;
+    public String getTitle() {
+        return title;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        PersonDTO personDTO = (PersonDTO) o;
-        return Objects.equals(getId(), personDTO.getId()) && Objects.equals(getFirstName(), personDTO.getFirstName()) && Objects.equals(getLastName(), personDTO.getLastName()) && Objects.equals(getAddress(), personDTO.getAddress()) && Objects.equals(getGender(), personDTO.getGender()) && Objects.equals(getEnabled(), personDTO.getEnabled());
+        BookDTO book = (BookDTO) o;
+        return Objects.equals(getId(), book.getId()) && Objects.equals(getAuthor(), book.getAuthor()) && Objects.equals(getLaunchDate(), book.getLaunchDate()) && Objects.equals(getPrice(), book.getPrice()) && Objects.equals(getTitle(), book.getTitle());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName(), getAddress(), getGender(), getEnabled());
+        return Objects.hash(getId(), getAuthor(), getLaunchDate(), getPrice(), getTitle());
     }
 }
 
