@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import engjao89.rest_with_spring_boot_and_java.config.TestConfigs;
 import engjao89.rest_with_spring_boot_and_java.data.dto.V1.PersonDTO;
+import engjao89.rest_with_spring_boot_and_java.integrationtests.dto.wrappers.xml.PagedModelPerson;
 import engjao89.rest_with_spring_boot_and_java.integrationtests.testcontainers.AbstractIntegrationTest;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -46,7 +47,7 @@ class PersonControllerXmlTest extends AbstractIntegrationTest {
         mockPerson();
 
         specification = new RequestSpecBuilder()
-                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_ERUDIO)
+                .addHeader(TestConfigs.HEADER_PARAM_ORIGIN, TestConfigs.ORIGIN_WEB)
                 .setBasePath("/api/person/v1")
                 .setPort(TestConfigs.SERVER_PORT)
                 .addFilter(new RequestLoggingFilter(LogDetail.ALL))
