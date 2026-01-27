@@ -1,13 +1,11 @@
 package engjao89.rest_with_spring_boot_and_java.integrationtests.controller.withxml;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import engjao89.rest_with_spring_boot_and_java.config.TestConfigs;
 import engjao89.rest_with_spring_boot_and_java.data.dto.V1.PersonDTO;
-import engjao89.rest_with_spring_boot_and_java.integrationtests.dto.wrappers.xml.PagedModelPerson;
+import engjao89.rest_with_spring_boot_and_java.integrationtests.dto.wrappers.xmlandyaml.PagedModelPerson;
 import engjao89.rest_with_spring_boot_and_java.integrationtests.testcontainers.AbstractIntegrationTest;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;

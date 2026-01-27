@@ -1,12 +1,10 @@
 package engjao89.rest_with_spring_boot_and_java.integrationtests.controller.withyaml;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import engjao89.rest_with_spring_boot_and_java.config.TestConfigs;
 import engjao89.rest_with_spring_boot_and_java.data.dto.V1.PersonDTO;
 import engjao89.rest_with_spring_boot_and_java.integrationtests.controller.withyaml.mapper.YAMLMapper;
-import engjao89.rest_with_spring_boot_and_java.integrationtests.dto.wrappers.xml.PagedModelPerson;
+import engjao89.rest_with_spring_boot_and_java.integrationtests.dto.wrappers.xmlandyaml.PagedModelPerson;
 import engjao89.rest_with_spring_boot_and_java.integrationtests.testcontainers.AbstractIntegrationTest;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.EncoderConfig;
@@ -20,7 +18,6 @@ import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
