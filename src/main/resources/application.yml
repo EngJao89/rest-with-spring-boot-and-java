@@ -27,6 +27,13 @@ spring:
         format_sql: true
         connection:
           provider_disables_autocommit: false
+    
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215 MB
   
   flyway:
     enabled: true
