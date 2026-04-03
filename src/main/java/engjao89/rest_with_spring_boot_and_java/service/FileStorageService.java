@@ -1,6 +1,7 @@
 package engjao89.rest_with_spring_boot_and_java.service;
 
 import engjao89.rest_with_spring_boot_and_java.config.FileStorageConfig;
+import engjao89.rest_with_spring_boot_and_java.exception.FileNotFoundException;
 import engjao89.rest_with_spring_boot_and_java.exception.FileStorageException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -3,3 +3,6 @@ spring:
     url: jdbc:mysql://${MYSQL_HOST:mysql}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:rest_with_spring_boot}?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=America/Sao_Paulo&allowPublicKeyRetrieval=true
     username: ${MYSQL_USER:app_user}
     password: ${MYSQL_PASSWORD:minha_senha}
+
+file:
+  upload-dir: ${FILE_UPLOAD_DIR:/tmp/file-uploads}

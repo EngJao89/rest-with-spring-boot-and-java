@@ -1,6 +1,9 @@
 cors:
   originPatterns: http://localhost:8080,http://localhost:3000
 
+file:
+  upload-dir: ${FILE_UPLOAD_DIR:uploads}
+
 spring:
   application:
     name: rest-with-spring-boot-and-java
