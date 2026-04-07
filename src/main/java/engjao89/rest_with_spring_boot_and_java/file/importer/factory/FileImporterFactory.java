@@ -2,6 +2,7 @@ package engjao89.rest_with_spring_boot_and_java.file.importer.factory;
 
 import engjao89.rest_with_spring_boot_and_java.file.importer.contract.FileImporter;
 import engjao89.rest_with_spring_boot_and_java.file.importer.impl.CsvImporter;
+import engjao89.rest_with_spring_boot_and_java.file.importer.impl.XlsxImporter;
 import org.apache.coyote.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
