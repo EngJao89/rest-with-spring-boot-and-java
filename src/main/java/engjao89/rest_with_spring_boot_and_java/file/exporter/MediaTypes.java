@@ -1,4 +1,4 @@
-package engjao89.rest_with_spring_boot_and_java.file;
+package engjao89.rest_with_spring_boot_and_java.file.exporter;
 
 public interface MediaTypes {
 
