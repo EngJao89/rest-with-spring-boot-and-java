@@ -14,6 +14,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.PagedModel;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +41,9 @@ class BookServicesTest {
 
     @Mock
     BookRepository repository;
+
+    @Mock
+    PagedResourcesAssembler<BookDTO> assembler;
 
     @BeforeEach
     void setUp() {
@@ -246,8 +257,26 @@ class BookServicesTest {
     @Test
     void findAll() {
         List<Book> list = input.mockEntityList();
-        when(repository.findAll()).thenReturn(list);
-        List<BookDTO> books = service.findAll();
+        Pageable pageable = PageRequest.of(0, 20);
+        when(repository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(list, pageable, list.size()));
+        when(assembler.toModel(any(Page.class), any(Link.class))).thenAnswer(invocation -> {
+            @SuppressWarnings("unchecked")
+            Page<BookDTO> page = invocation.getArgument(0);
+            PagedModel.PageMetadata metadata = new PagedModel.PageMetadata(
+                    page.getSize(),
+                    page.getNumber(),
+                    page.getTotalElements(),
+                    page.getTotalPages());
+            List<EntityModel<BookDTO>> models = page.getContent().stream()
+                    .map(EntityModel::of)
+                    .toList();
+            return PagedModel.of(models, metadata);
+        });
+
+        PagedModel<EntityModel<BookDTO>> paged = service.findAll(pageable);
+        List<BookDTO> books = paged.getContent().stream()
+                .map(EntityModel::getContent)
+                .toList();
 
         assertNotNull(books);
         assertEquals(14, books.size());
