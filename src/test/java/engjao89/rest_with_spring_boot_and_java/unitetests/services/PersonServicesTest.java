@@ -14,6 +14,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.PagedModel;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +41,9 @@ class PersonServicesTest {
 
     @Mock
     PersonRepository repository;
+
+    @Mock
+    PagedResourcesAssembler<PersonDTO> assembler;
 
     @BeforeEach
     void setUp() {
@@ -247,8 +258,26 @@ class PersonServicesTest {
     @Test
     void findAll() {
         List<Person> list = input.mockEntityList();
-        when(repository.findAll()).thenReturn(list);
-        List<PersonDTO> people = service.findAll();
+        Pageable pageable = PageRequest.of(0, 20);
+        when(repository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(list, pageable, list.size()));
+        when(assembler.toModel(any(Page.class), any(Link.class))).thenAnswer(invocation -> {
+            @SuppressWarnings("unchecked")
+            Page<PersonDTO> page = invocation.getArgument(0);
+            PagedModel.PageMetadata metadata = new PagedModel.PageMetadata(
+                    page.getSize(),
+                    page.getNumber(),
+                    page.getTotalElements(),
+                    page.getTotalPages());
+            List<EntityModel<PersonDTO>> models = page.getContent().stream()
+                    .map(EntityModel::of)
+                    .toList();
+            return PagedModel.of(models, metadata);
+        });
+
+        PagedModel<EntityModel<PersonDTO>> paged = service.findAll(pageable);
+        List<PersonDTO> people = paged.getContent().stream()
+                .map(EntityModel::getContent)
+                .toList();
 
         assertNotNull(people);
         assertEquals(14, people.size());

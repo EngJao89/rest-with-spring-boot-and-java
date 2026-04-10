@@ -18,7 +18,7 @@ public class PersonDTO implements Serializable {
     private Double price;
     private String title;
 
-    public BookDTO() {}
+    public PersonDTO() {}
 
     public Long getId() {
         return id;
