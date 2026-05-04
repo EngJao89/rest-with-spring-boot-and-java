@@ -47,7 +47,8 @@ public class PersonController implements PersonControllerDocs {
 
     @GetMapping(value = "/exportPage", produces = {
             MediaTypes.APPLICATION_XLSX_VALUE,
-            MediaTypes.APPLICATION_CSV_VALUE})
+            MediaTypes.APPLICATION_CSV_VALUE,
+            MediaTypes.APPLICATION_PDF_VALUE})
     @Override
     public ResponseEntity<Resource> exportPage(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -62,17 +63,23 @@ public class PersonController implements PersonControllerDocs {
 
         Resource file = service.exportPage(pageable, acceptHeader);
 
+        Map<String, String> extensionMap = Map.of(
+            MediaTypes.APPLICATION_XLSX_VALUE, ".xlsx",
+            MediaTypes.APPLICATION_CSV_VALUE, ".csv",
+            MediaTypes.APPLICATION_PDF_VALUE, ".pdf"
+        );
 
+        var fileExtension = extensionMap.getOrDefault(acceptHeader, "");
         var contentType = acceptHeader != null ? acceptHeader : "application/octet-stream";
-        var fileExtension = MediaTypes.APPLICATION_XLSX_VALUE.equalsIgnoreCase(acceptHeader) ? ".xlsx" : ".csv";
+
         var filename = "people_exported" + fileExtension;
 
         return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(contentType))
-                .header(
-                        HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment; filename=\"" + filename + "\"")
-                .body(file);
+            .contentType(MediaType.parseMediaType(contentType))
+            .header(
+                HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + filename + "\"")
+            .body(file);
     }
 
     @GetMapping(value = "/findPeopleByName/{firstName}", produces = {
@@ -103,6 +110,24 @@ public class PersonController implements PersonControllerDocs {
         return service.findById(id);
     }
 
+    @GetMapping(value = "/export/{id}",
+        produces = {
+            MediaType.APPLICATION_PDF_VALUE}
+    )
+    @Override
+    public ResponseEntity<Resource> export(@PathVariable("id") Long id, HttpServletRequest request) {
+
+        String acceptHeader = request.getHeader(HttpHeaders.ACCEPT);
+        Resource file = service.exportPerson(id, acceptHeader);
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(acceptHeader))
+                .header(
+                        HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=person.pdf")
+                .body(file);
+    }
+
     // @CrossOrigin(origins = {"http://localhost:8080","https://www.erudio.com.br"})
     @PostMapping(
             consumes = {
@@ -120,10 +145,10 @@ public class PersonController implements PersonControllerDocs {
     }
 
     @PostMapping(value = "/massCreation",
-            produces = {
-                    MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE,
-                    MediaType.APPLICATION_YAML_VALUE}
+        produces = {
+            MediaType.APPLICATION_JSON_VALUE,
+            MediaType.APPLICATION_XML_VALUE,
+            MediaType.APPLICATION_YAML_VALUE}
     )
     @Override
     public List<PersonDTO> massCreation(@RequestParam("file") MultipartFile file) {
