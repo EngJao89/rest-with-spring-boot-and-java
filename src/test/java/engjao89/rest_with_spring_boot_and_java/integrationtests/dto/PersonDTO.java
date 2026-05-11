@@ -5,6 +5,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @XmlRootElement
@@ -13,10 +14,15 @@ public class PersonDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    private String author;
-    private Date launchDate;
-    private Double price;
-    private String title;
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String gender;
+    private Boolean enabled;
+
+    private String profileUrl;
+    private String photoUrl;
+    private List<BookDTO> books;
 
     public PersonDTO() {}
 
@@ -28,48 +34,79 @@ public class PersonDTO implements Serializable {
         this.id = id;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public Date getLaunchDate() {
-        return launchDate;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLaunchDate(Date launchDate) {
-        this.launchDate = launchDate;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public Double getPrice() {
-        return price;
+    public String getAddress() {
+        return address;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getTitle() {
-        return title;
+    public String getGender() {
+        return gender;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getProfileUrl() {
+        return profileUrl;
+    }
+
+    public void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    public List<BookDTO> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<BookDTO> books) {
+        this.books = books;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        BookDTO book = (BookDTO) o;
-        return Objects.equals(getId(), book.getId()) && Objects.equals(getAuthor(), book.getAuthor()) && Objects.equals(getLaunchDate(), book.getLaunchDate()) && Objects.equals(getPrice(), book.getPrice()) && Objects.equals(getTitle(), book.getTitle());
+        PersonDTO personDTO = (PersonDTO) o;
+        return Objects.equals(getId(), personDTO.getId()) && Objects.equals(getFirstName(), personDTO.getFirstName()) && Objects.equals(getLastName(), personDTO.getLastName()) && Objects.equals(getAddress(), personDTO.getAddress()) && Objects.equals(getGender(), personDTO.getGender()) && Objects.equals(getEnabled(), personDTO.getEnabled()) && Objects.equals(getProfileUrl(), personDTO.getProfileUrl()) && Objects.equals(getPhotoUrl(), personDTO.getPhotoUrl()) && Objects.equals(getBooks(), personDTO.getBooks());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getAuthor(), getLaunchDate(), getPrice(), getTitle());
+        return Objects.hash(getId(), getFirstName(), getLastName(), getAddress(), getGender(), getEnabled(), getProfileUrl(), getPhotoUrl(), getBooks());
     }
 }
-
