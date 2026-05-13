@@ -80,7 +80,7 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
     @JsonIgnore
     public String getName(){
         return (firstName != null ? firstName : "") +
-            (lastName != null ? " " + lastName : "");
+                (lastName != null ? " " + lastName : "");
     }
 
     public String getProfileUrl() {

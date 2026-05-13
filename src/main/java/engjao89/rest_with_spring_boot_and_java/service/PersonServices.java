@@ -7,6 +7,7 @@ import engjao89.rest_with_spring_boot_and_java.exception.FileStorageException;
 import engjao89.rest_with_spring_boot_and_java.exception.RequiredObjectIsNullException;
 import engjao89.rest_with_spring_boot_and_java.exception.ResourceNotFoundException;
 import engjao89.rest_with_spring_boot_and_java.file.exporter.contract.FileExporter;
+import engjao89.rest_with_spring_boot_and_java.file.exporter.contract.PersonExporter;
 import engjao89.rest_with_spring_boot_and_java.file.exporter.factory.FileExporterFactory;
 import engjao89.rest_with_spring_boot_and_java.file.importer.contract.FileImporter;
 import engjao89.rest_with_spring_boot_and_java.file.importer.factory.FileImporterFactory;
@@ -79,8 +80,23 @@ public class PersonServices {
                 .getContent();
 
         try {
-            FileExporter exporter = this.exporter.getExporter(acceptHeader);
-            return exporter.exportFile(people);
+            PersonExporter exporter = this.exporter.getExporter(acceptHeader);
+            return exporter.exportPeople(people);
+        } catch (Exception e) {
+            throw new RuntimeException("Error during file export!", e);
+        }
+    }
+
+    public Resource exportPerson(Long id, String acceptHeader) {
+        logger.info("Exporting data of one Person!");
+
+        var person = repository.findById(id)
+                .map(entity -> parseObject(entity, PersonDTO.class))
+                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+
+        try {
+            PersonExporter exporter = this.exporter.getExporter(acceptHeader);
+            return exporter.exportPerson(person);
         } catch (Exception e) {
             throw new RuntimeException("Error during file export!", e);
         }
