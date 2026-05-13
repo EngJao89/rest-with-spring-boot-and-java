@@ -1,8 +1,9 @@
 package engjao89.rest_with_spring_boot_and_java.file.exporter.factory;
 
 import engjao89.rest_with_spring_boot_and_java.file.exporter.MediaTypes;
-import engjao89.rest_with_spring_boot_and_java.file.exporter.contract.FileExporter;
+import engjao89.rest_with_spring_boot_and_java.file.exporter.contract.PersonExporter;
 import engjao89.rest_with_spring_boot_and_java.file.exporter.impl.CsvExporter;
+import engjao89.rest_with_spring_boot_and_java.file.exporter.impl.PdfExporter;
 import engjao89.rest_with_spring_boot_and_java.file.exporter.impl.XlsxExporter;
 import org.apache.coyote.BadRequestException;
 import org.slf4j.Logger;
