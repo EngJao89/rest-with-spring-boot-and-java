@@ -1,6 +1,7 @@
 package engjao89.rest_with_spring_boot_and_java.file.exporter.impl;
 
 import engjao89.rest_with_spring_boot_and_java.data.dto.V1.PersonDTO;
+import engjao89.rest_with_spring_boot_and_java.file.exporter.contract.PersonExporter;
 import engjao89.rest_with_spring_boot_and_java.service.QRCodeService;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
