@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Map;
 
+// @CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/api/person/v1")
 @Tag(name = "People", description = "Endpoints for Managing People")
@@ -65,9 +66,9 @@ public class PersonController implements PersonControllerDocs {
         Resource file = service.exportPage(pageable, acceptHeader);
 
         Map<String, String> extensionMap = Map.of(
-            MediaTypes.APPLICATION_XLSX_VALUE, ".xlsx",
-            MediaTypes.APPLICATION_CSV_VALUE, ".csv",
-            MediaTypes.APPLICATION_PDF_VALUE, ".pdf"
+                MediaTypes.APPLICATION_XLSX_VALUE, ".xlsx",
+                MediaTypes.APPLICATION_CSV_VALUE, ".csv",
+                MediaTypes.APPLICATION_PDF_VALUE, ".pdf"
         );
 
         var fileExtension = extensionMap.getOrDefault(acceptHeader, "");
@@ -76,11 +77,11 @@ public class PersonController implements PersonControllerDocs {
         var filename = "people_exported" + fileExtension;
 
         return ResponseEntity.ok()
-            .contentType(MediaType.parseMediaType(contentType))
-            .header(
-                HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + filename + "\"")
-            .body(file);
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(
+                        HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=\"" + filename + "\"")
+                .body(file);
     }
 
     @GetMapping(value = "/findPeopleByName/{firstName}", produces = {
@@ -112,8 +113,8 @@ public class PersonController implements PersonControllerDocs {
     }
 
     @GetMapping(value = "/export/{id}",
-        produces = {
-            MediaType.APPLICATION_PDF_VALUE}
+            produces = {
+                    MediaType.APPLICATION_PDF_VALUE}
     )
     @Override
     public ResponseEntity<Resource> export(@PathVariable("id") Long id, HttpServletRequest request) {
@@ -146,10 +147,10 @@ public class PersonController implements PersonControllerDocs {
     }
 
     @PostMapping(value = "/massCreation",
-        produces = {
-            MediaType.APPLICATION_JSON_VALUE,
-            MediaType.APPLICATION_XML_VALUE,
-            MediaType.APPLICATION_YAML_VALUE}
+            produces = {
+                    MediaType.APPLICATION_JSON_VALUE,
+                    MediaType.APPLICATION_XML_VALUE,
+                    MediaType.APPLICATION_YAML_VALUE}
     )
     @Override
     public List<PersonDTO> massCreation(@RequestParam("file") MultipartFile file) {
