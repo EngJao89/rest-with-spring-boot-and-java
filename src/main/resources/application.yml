@@ -4,6 +4,10 @@ cors:
 file:
   upload-dir: ${FILE_UPLOAD_DIR:uploads}
 
+email:
+  subject: "Default Subject"
+  message: "Default Message"
+
 spring:
   application:
     name: rest-with-spring-boot-and-java
