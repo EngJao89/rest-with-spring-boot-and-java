@@ -1,5 +1,6 @@
 package engjao89.rest_with_spring_boot_and_java.mail;
 
+import engjao89.rest_with_spring_boot_and_java.config.EmailConfig;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
@@ -94,5 +95,6 @@ public class EmailSender implements Serializable {
         }
         return recipientsList;
     }
+
 
 }
