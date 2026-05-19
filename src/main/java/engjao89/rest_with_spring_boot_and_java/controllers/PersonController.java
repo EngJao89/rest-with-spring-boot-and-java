@@ -1,7 +1,7 @@
 package engjao89.rest_with_spring_boot_and_java.controllers;
 
 import engjao89.rest_with_spring_boot_and_java.controllers.docs.PersonControllerDocs;
-import engjao89.rest_with_spring_boot_and_java.data.dto.V1.PersonDTO;
+import engjao89.rest_with_spring_boot_and_java.data.dto.PersonDTO;
 import engjao89.rest_with_spring_boot_and_java.file.exporter.MediaTypes;
 import engjao89.rest_with_spring_boot_and_java.service.PersonServices;
 import io.swagger.v3.oas.annotations.tags.Tag;

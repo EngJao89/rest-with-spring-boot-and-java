@@ -1,7 +1,7 @@
 package engjao89.rest_with_spring_boot_and_java.controllers;
 
 import engjao89.rest_with_spring_boot_and_java.controllers.docs.BookControllerDocs;
-import engjao89.rest_with_spring_boot_and_java.data.dto.V1.BookDTO;
+import engjao89.rest_with_spring_boot_and_java.data.dto.BookDTO;
 import engjao89.rest_with_spring_boot_and_java.service.BookServices;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

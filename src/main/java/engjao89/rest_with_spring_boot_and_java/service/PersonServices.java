@@ -1,7 +1,7 @@
 package engjao89.rest_with_spring_boot_and_java.service;
 
 import engjao89.rest_with_spring_boot_and_java.controllers.PersonController;
-import engjao89.rest_with_spring_boot_and_java.data.dto.V1.PersonDTO;
+import engjao89.rest_with_spring_boot_and_java.data.dto.PersonDTO;
 import engjao89.rest_with_spring_boot_and_java.exception.BadRequestException;
 import engjao89.rest_with_spring_boot_and_java.exception.FileStorageException;
 import engjao89.rest_with_spring_boot_and_java.exception.RequiredObjectIsNullException;
@@ -32,7 +32,6 @@ import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package engjao89.rest_with_spring_boot_and_java.controllers.docs;
 
-import engjao89.rest_with_spring_boot_and_java.data.dto.V1.EmailRequestDTO;
+import engjao89.rest_with_spring_boot_and_java.data.dto.request.EmailRequestDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

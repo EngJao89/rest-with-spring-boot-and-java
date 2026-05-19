@@ -1,6 +1,6 @@
 package engjao89.rest_with_spring_boot_and_java.controllers.docs;
 
-import engjao89.rest_with_spring_boot_and_java.data.dto.V1.PersonDTO;
+import engjao89.rest_with_spring_boot_and_java.data.dto.PersonDTO;
 import engjao89.rest_with_spring_boot_and_java.file.exporter.MediaTypes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.Page;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.MediaType;

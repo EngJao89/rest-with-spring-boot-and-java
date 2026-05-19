@@ -1,6 +1,6 @@
 package engjao89.rest_with_spring_boot_and_java.unitetests.services;
 
-import engjao89.rest_with_spring_boot_and_java.data.dto.V1.BookDTO;
+import engjao89.rest_with_spring_boot_and_java.data.dto.BookDTO;
 import engjao89.rest_with_spring_boot_and_java.exception.RequiredObjectIsNullException;
 import engjao89.rest_with_spring_boot_and_java.model.Book;
 import engjao89.rest_with_spring_boot_and_java.repository.BookRepository;

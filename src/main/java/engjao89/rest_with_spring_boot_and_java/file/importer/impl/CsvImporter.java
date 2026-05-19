@@ -1,6 +1,6 @@
 package engjao89.rest_with_spring_boot_and_java.file.importer.impl;
 
-import engjao89.rest_with_spring_boot_and_java.data.dto.V1.PersonDTO;
+import engjao89.rest_with_spring_boot_and_java.data.dto.PersonDTO;
 import engjao89.rest_with_spring_boot_and_java.file.importer.contract.FileImporter;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;

@@ -1,4 +1,4 @@
-package engjao89.rest_with_spring_boot_and_java.data.dto.V1;
+package engjao89.rest_with_spring_boot_and_java.data.dto;
 
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;

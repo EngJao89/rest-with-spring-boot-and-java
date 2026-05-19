@@ -1,6 +1,6 @@
 package engjao89.rest_with_spring_boot_and_java.controllers.docs;
 
-import engjao89.rest_with_spring_boot_and_java.data.dto.V1.BookDTO;
+import engjao89.rest_with_spring_boot_and_java.data.dto.BookDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -13,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 public interface BookControllerDocs {
 
