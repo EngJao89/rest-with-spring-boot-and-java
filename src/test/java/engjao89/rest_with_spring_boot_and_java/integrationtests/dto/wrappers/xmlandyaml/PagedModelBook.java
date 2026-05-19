@@ -1,6 +1,6 @@
 package engjao89.rest_with_spring_boot_and_java.integrationtests.dto.wrappers.xmlandyaml;
 
-import engjao89.rest_with_spring_boot_and_java.data.dto.V1.BookDTO;
+import engjao89.rest_with_spring_boot_and_java.data.dto.BookDTO;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 

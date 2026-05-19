@@ -3,7 +3,7 @@ package engjao89.rest_with_spring_boot_and_java.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import engjao89.rest_with_spring_boot_and_java.config.EmailConfig;
-import engjao89.rest_with_spring_boot_and_java.data.dto.V1.EmailRequestDTO;
+import engjao89.rest_with_spring_boot_and_java.data.dto.request.EmailRequestDTO;
 import engjao89.rest_with_spring_boot_and_java.mail.EmailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

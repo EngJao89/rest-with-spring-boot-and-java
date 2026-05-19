@@ -1,7 +1,7 @@
 package engjao89.rest_with_spring_boot_and_java.controllers;
 
 import engjao89.rest_with_spring_boot_and_java.controllers.docs.EmailControllerDocs;
-import engjao89.rest_with_spring_boot_and_java.data.dto.V1.EmailRequestDTO;
+import engjao89.rest_with_spring_boot_and_java.data.dto.request.EmailRequestDTO;
 import engjao89.rest_with_spring_boot_and_java.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

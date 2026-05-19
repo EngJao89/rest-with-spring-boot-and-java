@@ -1,4 +1,4 @@
-package engjao89.rest_with_spring_boot_and_java.data.dto.V1;
+package engjao89.rest_with_spring_boot_and_java.data.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import engjao89.rest_with_spring_boot_and_java.model.Book;

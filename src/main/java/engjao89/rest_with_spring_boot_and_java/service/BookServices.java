@@ -1,7 +1,7 @@
 package engjao89.rest_with_spring_boot_and_java.service;
 
 import engjao89.rest_with_spring_boot_and_java.controllers.BookController;
-import engjao89.rest_with_spring_boot_and_java.data.dto.V1.BookDTO;
+import engjao89.rest_with_spring_boot_and_java.data.dto.BookDTO;
 import engjao89.rest_with_spring_boot_and_java.exception.RequiredObjectIsNullException;
 import engjao89.rest_with_spring_boot_and_java.exception.ResourceNotFoundException;
 import engjao89.rest_with_spring_boot_and_java.model.Book;

@@ -1,10 +1,9 @@
 package engjao89.rest_with_spring_boot_and_java.integrationtests.dto;
 
-import engjao89.rest_with_spring_boot_and_java.data.dto.V1.BookDTO;
+import engjao89.rest_with_spring_boot_and_java.data.dto.BookDTO;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
