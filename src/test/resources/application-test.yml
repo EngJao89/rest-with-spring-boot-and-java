@@ -4,6 +4,15 @@ server:
 cors:
   originPatterns: http://localhost:8080,http://localhost:3000
 
+file:
+  upload-dir: /Code/UploadDir
+
+security:
+  jwt:
+    token:
+      secret-key: ${JWT_SECRET_KEY:test-jwt-secret}
+      expire-lenght: 3600000
+
 email:
   subject: "Default Subject"
   message: "Default Message"

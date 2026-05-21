@@ -4,6 +4,12 @@ cors:
 file:
   upload-dir: ${FILE_UPLOAD_DIR:uploads}
 
+security:
+  jwt:
+    token:
+      secret-key: ${JWT_SECRET_KEY}
+      expire-lenght: 3600000
+
 email:
   subject: "Default Subject"
   message: "Default Message"
