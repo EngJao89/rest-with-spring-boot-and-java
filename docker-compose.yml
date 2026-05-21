@@ -31,12 +31,12 @@ services:
       - .env
     environment:
       MYSQL_HOST: mysql
-      MYSQL_PORT: ${MYSQL_PORT:db_port}
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-rest_with_spring_boot}
-      MYSQL_USER: ${MYSQL_USER:-app_user}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-minha_senha}
+      MYSQL_PORT: ${MYSQL_PORT}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
-      FILE_UPLOAD_DIR: ${FILE_UPLOAD_DIR:-/tmp/file-uploads}
+      FILE_UPLOAD_DIR: ${FILE_UPLOAD_DIR}
       SPRING_PROFILES_ACTIVE: docker
     ports:
       - "8080:8080"
