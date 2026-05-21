@@ -7,7 +7,7 @@ file:
 security:
   jwt:
     token:
-      secret-key: 53cr37
+      secret-key: ${JWT_SECRET_KEY}
       expire-lenght: 3600000
 
 email:
