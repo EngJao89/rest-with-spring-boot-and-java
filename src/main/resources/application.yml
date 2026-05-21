@@ -17,7 +17,9 @@ email:
 spring:
   application:
     name: rest-with-spring-boot-and-java
-  
+  config:
+    import: optional:file:.env[.properties]
+
   datasource:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:rest_with_spring_boot}?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=America/Sao_Paulo&allowPublicKeyRetrieval=true
     username: ${MYSQL_USER:app_user}

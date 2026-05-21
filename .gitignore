@@ -36,6 +36,9 @@ blog/bin/
 **/.idea
 **/.gradle
 
+# Environment variables (secrets)
+.env
+
 #Other Files
 *.ini
 

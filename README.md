@@ -58,15 +58,26 @@ GRANT ALL ON rest_with_spring_boot.* TO 'app_user'@'%';
 FLUSH PRIVILEGES;
 ```
 
-2. Opcional: configure variáveis de ambiente ou edite `src/main/resources/application.yml`:
+2. Configure as variáveis de ambiente:
 
-| Variável         | Descrição        | Padrão              |
-|------------------|------------------|----------------------|
-| `MYSQL_HOST`     | Host do MySQL    | `localhost`          |
-| `MYSQL_PORT`     | Porta            | `3306`               |
-| `MYSQL_DATABASE` | Nome do banco    | `rest_with_spring_boot` |
-| `MYSQL_USER`     | Usuário          | `app_user`           |
-| `MYSQL_PASSWORD` | Senha            | `minha_senha`        |
+```bash
+cp .env.example .env
+# Edite .env com seus valores (principalmente JWT_SECRET_KEY)
+```
+
+| Variável           | Descrição              | Padrão (se não definir)   |
+|--------------------|------------------------|---------------------------|
+| `JWT_SECRET_KEY`   | Chave do token JWT     | — (obrigatória)           |
+| `MYSQL_HOST`       | Host do MySQL          | `localhost`               |
+| `MYSQL_PORT`       | Porta                  | `3306`                    |
+| `MYSQL_DATABASE`   | Nome do banco          | `rest_with_spring_boot`   |
+| `MYSQL_USER`       | Usuário                | `app_user`                |
+| `MYSQL_PASSWORD`   | Senha                  | `minha_senha`             |
+| `FILE_UPLOAD_DIR`  | Pasta de uploads       | `uploads`                 |
+| `EMAIL_USERNAME`   | E-mail (testes)        | —                         |
+| `EMAIL_PASSWORD`   | Senha do e-mail        | —                         |
+
+O arquivo `.env` é carregado automaticamente pelo Spring Boot. O template fica em `.env.example` (versionado); o `.env` real não vai para o Git.
 
 3. Compile e execute:
 
@@ -79,15 +90,21 @@ A aplicação sobe em **http://localhost:8080**. O Flyway aplica as migrations n
 
 ### 2. Rodar com Docker (recomendado se não quiser instalar MySQL)
 
-1. Na raiz do projeto:
+1. Crie o `.env` a partir do exemplo (obrigatório para `JWT_SECRET_KEY`):
+
+```bash
+cp .env.example .env
+```
+
+2. Na raiz do projeto:
 
 ```bash
 docker-compose up -d --build
 ```
 
-2. A API fica em **http://localhost:8080** e o MySQL em **localhost:3307** (porta externa 3307 para não conflitar com um MySQL local na 3306).
+3. A API fica em **http://localhost:8080** e o MySQL em **localhost:3307** (porta externa 3307 para não conflitar com um MySQL local na 3306).
 
-3. Parar e remover containers:
+4. Parar e remover containers:
 
 ```bash
 docker-compose down

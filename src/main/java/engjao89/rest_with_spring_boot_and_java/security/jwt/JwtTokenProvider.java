@@ -25,8 +25,8 @@ import java.util.List;
 @Service
 public class JwtTokenProvider {
 
-    @Value("${security.jwt.token.secret-key}")
-    private String secretKey;
+    @Value("${security.jwt.token.secret-key:secret}")
+    private String secretKey = "secret";
 
     @Value("${security.jwt.token.expire-lenght:3600000}")
     private long validityInMilliseconds = 3600000; // 1h
@@ -102,9 +102,9 @@ public class JwtTokenProvider {
 
     public String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-        if (refreshTokenContainsBearer(bearerToken)) {
-            return bearerToken.substring("Bearer ".length());
-        }
+
+        //Bearer={BEARER_TOKEN} 
+        if(refreshTokenContainsBearer(bearerToken)) return bearerToken.substring("Bearer ".length());
         return null;
     }
 
