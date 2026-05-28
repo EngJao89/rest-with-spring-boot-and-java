@@ -5,14 +5,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
+import java.io.Serializable;
 import java.util.List;
 
-@XmlRootElement(name = "pagedModelPerson")
-public class PagedModelPerson {
+@XmlRootElement
+public class PagedModelPerson implements Serializable {
 
-    @JsonProperty("content")
+    private static final long serialVersionUID = 1L;
+
     @XmlElement(name = "content")
-    private List<PersonDTO> content;
+    public List<PersonDTO> content;
 
     public PagedModelPerson() {}
 
