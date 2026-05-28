@@ -11,15 +11,15 @@ public class PersonEmbeddedDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @JsonProperty("people")
-    private List<PersonDTO> persons;
+    private List<PersonDTO> people;
 
     public PersonEmbeddedDTO() {}
 
-    public List<PersonDTO> getPersons() {
-        return persons;
+    public List<PersonDTO> getPeople() {
+        return people;
     }
 
-    public void setPersons(List<PersonDTO> persons) {
-        this.persons = persons;
+    public void setPeople(List<PersonDTO> people) {
+        this.people = people;
     }
 }
