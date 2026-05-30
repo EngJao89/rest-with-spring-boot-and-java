@@ -1,35 +1,42 @@
 package engjao89.rest_with_spring_boot_and_java.integrationtests.testcontainers;
 
-import io.restassured.RestAssured;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.MapPropertySource;
+import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.containers.MySQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.lifecycle.Startables;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@ActiveProfiles("test")
-@Testcontainers
-public abstract class AbstractIntegrationTest {
+import java.util.Map;
+import java.util.stream.Stream;
 
-    @Container
-    static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0")
-            .withDatabaseName("rest_with_spring_boot_test")
-            .withUsername("test_user")
-            .withPassword("test_password")
-            .withReuse(true);
+@ContextConfiguration(initializers = AbstractIntegrationTest.Initializer.class)
+public class AbstractIntegrationTest {
 
-    static {
-        RestAssured.port = 8888;
-        RestAssured.basePath = "/api";
-    }
+    static class Initializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
-    @DynamicPropertySource
-    static void configureProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", mysql::getJdbcUrl);
-        registry.add("spring.datasource.username", mysql::getUsername);
-        registry.add("spring.datasource.password", mysql::getPassword);
+        static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:9.1.0");
+
+        private static void startContainers() {
+            Startables.deepStart(Stream.of(mysql)).join();
+        }
+
+        private static Map<String, String> createConnectionConfiguration() {
+            return Map.of(
+                    "spring.datasource.url", mysql.getJdbcUrl(),
+                    "spring.datasource.username", mysql.getUsername(),
+                    "spring.datasource.password", mysql.getPassword()
+            );
+        }
+
+        @Override
+        public void initialize(ConfigurableApplicationContext applicationContext) {
+            startContainers();
+            ConfigurableEnvironment environment = applicationContext.getEnvironment();
+            MapPropertySource testcontainers = new MapPropertySource("testcontainers",
+                    (Map) createConnectionConfiguration());
+            environment.getPropertySources().addFirst(testcontainers);
+        }
     }
 }
