@@ -57,6 +57,16 @@ spring:
     locations: classpath:db/migration
     validate-on-migrate: false
     clean-disabled: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_USERNAME:}
+    password: ${EMAIL_PASSWORD:}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enabled: true
+      mail.smtp.starttls.required: true
   logging:
     level:
       root: INFO
