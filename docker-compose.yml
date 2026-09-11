@@ -5,10 +5,10 @@ services:
     image: mysql:8.0
     container_name: rest-api-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: rest_with_spring_boot
-      MYSQL_USER: app_user
-      MYSQL_PASSWORD: minha_senha
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_password}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
     ports:
       - "3307:3306"  # Porta externa 3307 para evitar conflito com MySQL local
     volumes:
@@ -36,7 +36,7 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
-      FILE_UPLOAD_DIR: ${FILE_UPLOAD_DIR}
+      FILE_UPLOAD_DIR: /tmp/file-uploads
       SPRING_PROFILES_ACTIVE: docker
     ports:
       - "8080:8080"
