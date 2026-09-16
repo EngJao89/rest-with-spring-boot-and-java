@@ -70,7 +70,11 @@ public class BookServices {
         if (book == null) throw new RequiredObjectIsNullException();
 
         logger.info("Creating one Book!");
+        if (book.getId() == null || book.getId() <= 0) {
+            book.setId(null);
+        }
         var entity = parseObject(book, Book.class);
+        entity.setId(null);
 
         var dto = parseObject(repository.save(entity), BookDTO.class);
         addHateoasLinks(dto);

@@ -115,7 +115,11 @@ public class PersonServices {
         if (person == null) throw new RequiredObjectIsNullException();
 
         logger.info("Creating one Person!");
+        if (person.getId() == null || person.getId() <= 0) {
+            person.setId(null);
+        }
         var entity = parseObject(person, Person.class);
+        entity.setId(null);
 
         var dto = parseObject(repository.save(entity), PersonDTO.class);
         addHateoasLinks(dto);
