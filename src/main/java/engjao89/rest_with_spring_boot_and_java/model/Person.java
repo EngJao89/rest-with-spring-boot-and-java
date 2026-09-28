@@ -16,6 +16,9 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "user_id", unique = true)
+    private Long userId;
+
     @Column(name = "first_name", nullable = false, length = 80)
     private String firstName;
 
@@ -57,6 +60,14 @@ public class Person implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
@@ -135,11 +146,11 @@ public class Person implements Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return Objects.equals(getId(), person.getId()) && Objects.equals(getFirstName(), person.getFirstName()) && Objects.equals(getLastName(), person.getLastName()) && Objects.equals(getAddress(), person.getAddress()) && Objects.equals(getGender(), person.getGender()) && Objects.equals(getBirthDay(), person.getBirthDay()) && Objects.equals(getEnabled(), person.getEnabled()) && Objects.equals(getProfileUrl(), person.getProfileUrl()) && Objects.equals(getPhotoUrl(), person.getPhotoUrl()) && Objects.equals(getBooks(), person.getBooks());
+        return Objects.equals(getId(), person.getId()) && Objects.equals(getUserId(), person.getUserId()) && Objects.equals(getFirstName(), person.getFirstName()) && Objects.equals(getLastName(), person.getLastName()) && Objects.equals(getAddress(), person.getAddress()) && Objects.equals(getGender(), person.getGender()) && Objects.equals(getBirthDay(), person.getBirthDay()) && Objects.equals(getEnabled(), person.getEnabled()) && Objects.equals(getProfileUrl(), person.getProfileUrl()) && Objects.equals(getPhotoUrl(), person.getPhotoUrl()) && Objects.equals(getBooks(), person.getBooks());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName(), getAddress(), getGender(), getBirthDay(), getEnabled(), getProfileUrl(), getPhotoUrl(), getBooks());
+        return Objects.hash(getId(), getUserId(), getFirstName(), getLastName(), getAddress(), getGender(), getBirthDay(), getEnabled(), getProfileUrl(), getPhotoUrl(), getBooks());
     }
 }

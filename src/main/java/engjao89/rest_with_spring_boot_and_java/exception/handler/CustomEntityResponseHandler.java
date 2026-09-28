@@ -1,7 +1,6 @@
 package engjao89.rest_with_spring_boot_and_java.exception.handler;
 
 import engjao89.rest_with_spring_boot_and_java.exception.*;
-import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -43,7 +42,7 @@ public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(BadRequestException.class)
+    @ExceptionHandler(engjao89.rest_with_spring_boot_and_java.exception.BadRequestException.class)
     public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions(Exception ex, WebRequest request) {
         ExceptionResponse response = new ExceptionResponse(
                 new Date(),
