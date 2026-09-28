@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +35,9 @@ public class AuthService {
 
     @Autowired
     private UserRepository repository;
+
+    @Autowired
+    private PersonBookServices personBookServices;
 
     public ResponseEntity<TokenDTO> signIn(AccountCredentialsDTO credentials) {
         authenticationManager.authenticate(
@@ -66,6 +70,7 @@ public class AuthService {
         return ResponseEntity.ok(token);
     }
 
+    @Transactional
     public AccountCredentialsDTO create(AccountCredentialsDTO user) {
 
         if (user == null) throw new RequiredObjectIsNullException();
@@ -81,6 +86,7 @@ public class AuthService {
         entity.setEnabled(true);
 
         var dto = repository.save(entity);
+        personBookServices.createPersonForUser(dto);
         return new AccountCredentialsDTO(dto.getUsername(), dto.getPassword(), dto.getFullName());
     }
 
